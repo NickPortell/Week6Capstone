@@ -4,9 +4,9 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="128f01dfa9fa4d6fbe93b17dfe97bbc5" Name="Diagram1">
-        <EntityTypeShape EntityType="UserTaskListDBModel.Task" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="UserTaskListDBModel.User" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+      <Diagram DiagramId="adda18ec331944c38281ea3279165132" Name="Diagram1">
+        <EntityTypeShape EntityType="UserTaskListDBModel.Task" Width="1.875" PointX="3.375" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="UserTaskListDBModel.User" Width="2" PointX="0.5" PointY="1.125" IsExpanded="true" />
         <AssociationConnector Association="UserTaskListDBModel.FK_User_To_Task" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>

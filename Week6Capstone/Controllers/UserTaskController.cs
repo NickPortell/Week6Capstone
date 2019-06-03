@@ -12,10 +12,8 @@ namespace Week6Capstone.Controllers
         UserTaskListDBEntities ORM = new UserTaskListDBEntities();
         
 
-        // GET: UserTask
         public ActionResult Index()
         {
-            
             return View();
         }
 
@@ -46,35 +44,49 @@ namespace Week6Capstone.Controllers
 
         public ActionResult UserPage(User loginUser)
         {
+            if(Session["CurrentUser"] != null)
+            {
+                return View();
+            }
+
             List<User> userList = ORM.Users.ToList();
 
-            foreach(User user in userList)
+            User user = userList.Find(u => u.Email == loginUser.Email);
+
+            if(user != null)
             {
-                if (loginUser.Email == user.Email && loginUser.Password == user.Password)
+                if (loginUser.Password == user.Password)
                 {
                     loginUser.Id = user.Id;
                     Session["CurrentUser"] = loginUser;
+                    return View();
                 }
                 else
-                {       
+                {
                     ViewBag.ErrorMessage = "Email or Password was incorrect...";
                     return RedirectToAction("Login");
                 }
             }
-            return View();
+            
+            ViewBag.ErrorMessage = "There are no users with this email address..";
+            return RedirectToAction("Login");
         }
 
         public ActionResult TaskList()
         {
             User user = (User)Session["CurrentUser"];
-            ViewBag.taskList = ORM.Tasks.ToList().FindAll(t=>t.UserID == user.Id).ToList();
+
+            ViewBag.taskList = ORM.Tasks.ToList().FindAll(t => t.UserID == user.Id).ToList();
 
             return View();
         }
         public ActionResult AddTask(Task newTask)
         {
+            User user = (User)Session["CurrentUser"];
+
             if (ModelState.IsValid)
             {
+                newTask.UserID = user.Id;
                 ORM.Tasks.Add(newTask);
                 ORM.SaveChanges();
                 return RedirectToAction("TaskList");
